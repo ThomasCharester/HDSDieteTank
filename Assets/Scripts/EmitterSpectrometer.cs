@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class EmitterSpectrometer : MonoBehaviour
 {
-    private ParticleSystem spectrometerSystem;
+    public ParticleSystem spectrometerSystem;
     [SerializeField] private int selectedRate = 0;
+
+    [SerializeField] private int particlesCountModifier = 100;
+
+    public bool emmit = false;
+    private void Awake()
+    {
+    }
     void Start()
     {
         spectrometerSystem = GetComponent<ParticleSystem>();
@@ -14,6 +21,7 @@ public class EmitterSpectrometer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spectrometerSystem.Emit((int)(AudioSpectrometer.samples[selectedRate] * 100));
+        if(emmit)
+            spectrometerSystem.Emit((int)(AudioSpectrometer.samples[selectedRate] * particlesCountModifier));
     }
 }
